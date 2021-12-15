@@ -1,0 +1,1 @@
+export enum MessageTypeEnum { SHIPMENT = "SHIPMENT", ORGANIZATION = "ORGANIZATION" }
