@@ -1,5 +1,6 @@
 import { Equals, IsEnum, IsString } from "class-validator";
-import { MessageTypeEnum } from "../shipment.constants";
+import { MessageTypeEnum } from "../shipments.constants";
+
 
 export class OrganizationDto {
 

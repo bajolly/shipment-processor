@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common';
-import { ShipmentDto } from './dto/shipment.dto';
+import { ShipmentDto } from '../dto/shipment.dto';
 import { ShipmentService } from './shipment.service';
 
 @Controller(['shipment', 'shipments'])
@@ -12,13 +12,13 @@ export class ShipmentController {
     @Post()
     shipment(@Body() shipmentDto: ShipmentDto) {
         this.logger.log(`isInstanceOf shipmentDto ${shipmentDto instanceof ShipmentDto}`)
-        return shipmentDto;
+        return this.shipmentService.create(shipmentDto);
     }
 
     @Get(':id')
     shipments(@Param('id') id: string)
     {
         this.logger.log(`id is type ${typeof id}`)
-        return `This action gets shipment #${id}`
+        return this.shipmentService.findOne(id);
     }
 }
