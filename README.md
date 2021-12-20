@@ -19,10 +19,15 @@ DATABASE_HOST=localhost
 ```
 
 currently project is configured to automatically create database tables for sql entities     
-  ```autoLoadEntities: true,
-  synchronize: true //TURN THIS OFF IN PRODUCTION```
+  
+```
+autoLoadEntities: true,
+synchronize: true //TURN THIS OFF IN PRODUCTION
+```
+
 
 ## Installation
+
 
 ```bash
 $ npm install
