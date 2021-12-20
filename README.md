@@ -8,10 +8,15 @@ edit the docker-compose.yml file to set database password
 create .env file in the root directory with database connection parameters for example 
 
 NODE_ENV=development
+
 DATABASE_USER=postgres
+
 DATABASE_PASSWORD=<match pw in docker-compose.yml>
+  
 DATABASE_NAME=postgres
+  
 DATABASE_PORT=5432
+  
 DATABASE_HOST=localhost
 
 currently project is configured to automatically create database tables for sql entities     
