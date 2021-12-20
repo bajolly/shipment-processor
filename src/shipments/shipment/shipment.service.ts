@@ -4,10 +4,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { NodesDto } from '../dto/nodes.dto';
 import { ShipmentDto } from '../dto/shipment.dto';
+import { TotalWeightDto } from '../dto/total.weight.dto';
 import { OrganizationCode } from '../entities/organization-code';
 import { Shipment } from '../entities/shipment';
 import { TransportPackNode } from '../entities/transport-pack-node';
 import { OrganizationCodeService } from '../organization.code.service';
+import { convertShipment, MassEnum } from '../shipments.constants';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class ShipmentService extends OrganizationCodeService {
@@ -37,6 +39,13 @@ export class ShipmentService extends OrganizationCodeService {
             throw new NotFoundException(`Shipment #${referenceId} not found`);
         }
         return shipment;
+    }
+
+    async totalWeight(unit: MassEnum) {
+        const shipments = await this.shipmentRepository.find({ relations: ['organizations', 'nodes'], })
+        const totalWeight : number = shipments.map(shipment => convertShipment(unit, shipment)).reduce((acc, trackNode) => acc + trackNode, 0)
+        const response: TotalWeightDto = { weight: totalWeight, unit: unit };
+        return response;
     }
 
     async create(shipmentDto: ShipmentDto)
@@ -77,7 +86,6 @@ export class ShipmentService extends OrganizationCodeService {
 
 
 
-
     private async preloadNodeByWeightAndUnits(nodesDto: NodesDto): Promise<TransportPackNode> {
         const trackingNode = await this.transportPackNodeRepository.findOne({
             where: {
@@ -95,4 +103,6 @@ export class ShipmentService extends OrganizationCodeService {
             weightUnit: nodesDto.totalWeight.unit,
         });
     }    
+
+
 }

@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { MassEnum } from "../shipments.constants";
 import { Shipment } from "./shipment";
 
@@ -8,12 +8,12 @@ export class TransportPackNode {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: 'double precision'})
     weight: number;
 
     @Column({ name: 'weight_unit', type: "enum", enum: MassEnum })
-    weightUnit: string;
+    weightUnit: MassEnum;
 
-    @ManyToOne(() => Shipment, shipment => shipment.nodes)
+    @ManyToMany(() => Shipment, shipment => shipment.nodes)
     shipment: Shipment;
 }

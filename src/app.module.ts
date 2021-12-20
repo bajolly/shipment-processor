@@ -19,7 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       autoLoadEntities: true,
-      //synchronize: true //TURN THIS OFF IN PRODUCTION
+      synchronize: true //TURN THIS OFF IN PRODUCTION
     })],
   controllers: [AppController],
   providers: [AppService],

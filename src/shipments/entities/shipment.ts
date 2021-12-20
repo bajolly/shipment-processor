@@ -14,12 +14,13 @@ export class Shipment {
      estimatedTimeArrival: Date;
 
     @JoinTable()
-    @ManyToMany(type => OrganizationCode,
+    @ManyToMany(() => OrganizationCode,
         (code) => code.code, {
         cascade: true,
     })
     organizations: OrganizationCode[];
 
-    @OneToMany(() => TransportPackNode, node => node.shipment, { cascade: true, })
+    @JoinTable()
+    @ManyToMany(() => TransportPackNode, node => node.shipment, { cascade: true, })
     nodes: TransportPackNode[];
 }
